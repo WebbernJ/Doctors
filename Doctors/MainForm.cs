@@ -47,10 +47,16 @@ namespace Doctors
             string selectedDate = monthCalendar1.SelectionStart.ToString("dd/MM/yyyy");
             int selectedDoctor = doctorCombo.SelectedIndex + 2;
             string DoctorID = selectedDoctor.ToString();
-            SqlCommand checkAvailability = new SqlCommand("SELECT Slot, Doctor_Id FROM Appointments WHERE Date=@date AND Doctor_Id=@doctor", newCon);
-            checkAvailability.Parameters.Add(new SqlParameter("@date", selectedDate));
-            checkAvailability.Parameters.Add(new SqlParameter("@doctor", selectedDoctor));
-            SqlDataAdapter daBookings = new SqlDataAdapter(checkAvailability);
+            //SqlCommand checkAvailability = new SqlCommand("SELECT Slot, Doctor_Id FROM Appointments WHERE Date=@date AND Doctor_Id=@doctor", newCon);
+            //checkAvailability.Parameters.Add(new SqlParameter("@date", selectedDate));
+            //checkAvailability.Parameters.Add(new SqlParameter("@doctor", selectedDoctor));
+            //SqlDataAdapter daBookings = new SqlDataAdapter(checkAvailability);
+
+            SqlCommand getSlotName = new SqlCommand("SELECT Patients.First_Name, Patients.Last_Name, Appointments.Patient_Id, Appointments.Slot, Appointments.Doctor_Id FROM Appointments JOIN Patients ON Appointments.Patient_Id=Patients.Patient_Id WHERE Appointments.Date=@date AND Appointments.Doctor_Id=@doctor", newCon);
+            getSlotName.Parameters.Add(new SqlParameter("@date", selectedDate));
+            getSlotName.Parameters.Add(new SqlParameter("@doctor", selectedDoctor));
+            SqlDataAdapter daBookings = new SqlDataAdapter(getSlotName);
+
             //Populate the DataSet
             dtBookings = new DataTable();
             daBookings.Fill(dtBookings);
@@ -64,8 +70,9 @@ namespace Doctors
                     //Check vlaue of data row on seat id column against the text of the tabs buttons
                     if (seat.Text == row["Slot"].ToString() && DoctorID == row["Doctor_Id"].ToString())
                     {
-                        seat.BackColor = Color.Firebrick; //Colour seat yellow
+                        seat.BackColor = Color.Crimson; //Colour seat yellow
                         seat.Enabled = false; //Disable seat
+                        seat.Text = row["First_Name"].ToString() + " " + row["Last_Name"].ToString();
                     }
                 }
             }
@@ -101,9 +108,24 @@ namespace Doctors
                     //Check vlaue of data row on seat id column against the text of the tabs buttons
                     if (seat.Text == row["Slot"].ToString() && comboID.ToString() == row["Staff_Id"].ToString())
                     {
-                        seat.BackColor = Color.MediumTurquoise; //Colour seat yellow
-                        seat.Text = row["Reason"].ToString();
                         seat.Enabled = false; //Disable seat
+                        seat.Text = row["Reason"].ToString();
+                        if (row["Reason"].ToString() == "Hospital Visit")
+                        {
+                            seat.BackColor = Color.Red; //Colour seat Red
+                        }
+                        else if (row["Reason"].ToString() == "Home Visit")
+                        {
+                            seat.BackColor = Color.Blue; //Colour seat Blue
+                        }
+                        else if (row["Reason"].ToString() == "Meeting")
+                        {
+                            seat.BackColor = Color.Yellow; //Colour seat Yellow
+                        }
+                        else if (row["Reason"].ToString() == "Other")
+                        {
+                            seat.BackColor = Color.Green; //Colour seat Green
+                        }  
                     }
                 }
             }

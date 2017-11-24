@@ -56,10 +56,10 @@
             this.createAppBTN = new System.Windows.Forms.Button();
             this.doctorGB = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.reasonCombo = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.patientGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.doctorGB.SuspendLayout();
@@ -335,6 +335,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Reson:";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -350,7 +359,7 @@
             this.reasonCombo.FormattingEnabled = true;
             this.reasonCombo.Items.AddRange(new object[] {
             "Meeting",
-            "Hospital Vistit",
+            "Hospital Visit",
             "Home Visit",
             "Other"});
             this.reasonCombo.Location = new System.Drawing.Point(106, 24);
@@ -370,15 +379,6 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Appointment Booking";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Reson:";
             // 
             // MainForm
             // 
