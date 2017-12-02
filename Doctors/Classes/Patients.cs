@@ -126,7 +126,8 @@ namespace Doctors
         public void addPatient()
         {
             newCon.Open(); //Open a connection
-            SqlCommand insertPatient = new SqlCommand("INSERT INTO Patients (First_Name, Last_Name, Age, Address, TownCity, County, Postcode, Tel) VALUES(@fname, @lname, @age, @address, @townCity, @county, @postcode, @tel)", newCon);
+            SqlCommand insertPatient = new SqlCommand("INSERT INTO Patients (First_Name, Last_Name, Age, Address, TownCity, County, Postcode, Tel) " +
+                "                                       VALUES(@fname, @lname, @age, @address, @townCity, @county, @postcode, @tel)", newCon);
             insertPatient.Parameters.Add(new SqlParameter("@fname", m_fName));
             insertPatient.Parameters.Add(new SqlParameter("@lname", m_LName));
             insertPatient.Parameters.Add(new SqlParameter("@age", m_age));
@@ -141,10 +142,16 @@ namespace Doctors
             newCon.Close();
         }
 
-        private void getPatient()
+        public DataTable getAllPatients()
         {
-
+            newCon.Open();
+            SqlCommand getPatients = new SqlCommand("Select * from Patients", newCon); // Sql command: get all records from the patients table 
+            SqlDataAdapter daGetPatients = new SqlDataAdapter(getPatients); // Fill data adapter with results from query
+            //Populate the DataSet
+            DataTable dtAllPatients = new DataTable(); //New datatabke
+            daGetPatients.Fill(dtAllPatients); //Fill datatable 
+            newCon.Close();
+            return dtAllPatients;
         }
-
     }
 }

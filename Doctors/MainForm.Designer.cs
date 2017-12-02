@@ -60,6 +60,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.reasonCombo = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.patientGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.doctorGB.SuspendLayout();
@@ -89,7 +90,7 @@
             this.patientGB.Controls.Add(this.fnameTB);
             this.patientGB.Location = new System.Drawing.Point(12, 12);
             this.patientGB.Name = "patientGB";
-            this.patientGB.Size = new System.Drawing.Size(308, 389);
+            this.patientGB.Size = new System.Drawing.Size(308, 301);
             this.patientGB.TabIndex = 1;
             this.patientGB.TabStop = false;
             this.patientGB.Text = "Patient Details";
@@ -369,6 +370,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.createAppBTN);
             this.groupBox1.Controls.Add(this.monthCalendar1);
             this.groupBox1.Controls.Add(this.doctorCombo);
@@ -379,6 +381,16 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Appointment Booking";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(142, 223);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(96, 35);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Cancel Appointments";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MainForm
             // 
@@ -438,5 +450,6 @@
         private System.Windows.Forms.ComboBox reasonCombo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button2;
     }
 }

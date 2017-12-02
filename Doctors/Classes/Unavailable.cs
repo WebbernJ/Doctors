@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace Doctors
 {
@@ -14,6 +15,7 @@ namespace Doctors
         static string myConnectionString = ConfigurationManager.ConnectionStrings["Appdbconstring"].ConnectionString;
         //New connection 
         SqlConnection newCon = new SqlConnection(myConnectionString);
+        DataTable dtDoctorAvalibility;
         //Declare property variables
         private int m_staffID;
         private string m_date, m_slot, m_reason;
@@ -65,6 +67,7 @@ namespace Doctors
                 m_reason = value;
             }
         }
+
          public void addAvailability()
         {
             newCon.Open(); //Open a connection
@@ -75,6 +78,20 @@ namespace Doctors
             insertPatient.Parameters.Add(new SqlParameter("@reason", m_reason));
             insertPatient.ExecuteNonQuery();         
             newCon.Close();
-        }        
+        }    
+        
+        public DataTable checkAvailabilityMethod(string selectedDate, string DoctorID)
+        {
+            newCon.Open();
+            SqlCommand checkAvailability = new SqlCommand("SELECT Slot, Reason, Staff_Id FROM Unavailable WHERE Date=@date AND Staff_Id=@staffId", newCon);
+            checkAvailability.Parameters.Add(new SqlParameter("@date", selectedDate));
+            checkAvailability.Parameters.Add(new SqlParameter("@staffId", int.Parse(DoctorID)));
+            SqlDataAdapter daBookings = new SqlDataAdapter(checkAvailability);
+            //Populate the DataSet
+            dtDoctorAvalibility = new DataTable();
+            daBookings.Fill(dtDoctorAvalibility);
+            newCon.Close();
+            return dtDoctorAvalibility;
+        }
     }
 }
